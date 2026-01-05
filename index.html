@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZYNEX — Build the Future</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
+
+body{
+  min-height:100vh;
+  background:radial-gradient(circle at top,#0f172a,#020617);
+  color:white;
+  text-align:center;
+  padding:20px;
+  overflow-x:hidden;
+}
+
+/* particles */
+.particle{
+  position:absolute;width:4px;height:4px;
+  background:#1E90FF;border-radius:50%;
+  animation:float 8s linear infinite;opacity:.7;
+}
+@keyframes float{
+  0%{transform:translate(0);opacity:.3}
+  50%{transform:translate(-40px,-200px);opacity:.8}
+  100%{transform:translate(20px,0);opacity:.3}
+}
+
+/* hero */
+.container{
+  max-width:500px;
+  margin:80px auto 40px;
+  position:relative;z-index:1;
+}
+
+.logo{font-size:3rem;font-weight:800;letter-spacing:4px;}
+.logo span{color:#1E90FF;text-shadow:0 0 20px rgba(30,144,255,.8);}
+.tagline{margin-top:15px;font-size:1.2rem;color:#cbd5f5;}
+.divider{width:80px;height:4px;background:#1E90FF;margin:20px auto;border-radius:10px;}
+.section-title{font-size:1.4rem;color:#00E5FF}
+
+/* GLASS TOOLS */
+.tools{
+  max-width:500px;
+  margin:40px auto;
+  padding:30px;
+  border-radius:18px;
+  background:rgba(15,23,42,0.55);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(30,144,255,0.35);
+  box-shadow:0 0 40px rgba(30,144,255,.25);
+}
+
+.tools h2 span{color:#1E90FF}
+.tools p{color:#94a3b8;margin-bottom:20px;}
+
+.tool-box input,button{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:8px;
+  font-size:1rem;
+}
+
+.tool-box input{
+  background:rgba(2,6,23,0.8);
+  color:white;
+  border:1px solid rgba(30,144,255,.6);
+}
+
+.tool-box button{
+  background:#1E90FF;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+}
+.tool-box button:hover{background:#00E5FF}
+
+.copy-btn{background:#22c55e}
+.copy-btn:hover{background:#16a34a}
+
+/* QR */
+.qr-box img{
+  margin-top:15px;
+  width:180px;
+  padding:10px;
+  background:white;
+  border-radius:10px;
+}
+
+.download-btn{
+  background:#a855f7;
+}
+.download-btn:hover{background:#9333ea}
+
+/* footer */
+.contact{margin-top:40px;color:#94a3b8}
+.contact a{color:#1E90FF;text-decoration:none}
+footer{margin-top:10px;font-size:.8rem;color:#64748b}
+</style>
+</head>
+
+<body>
+
+<div class="particle" style="top:80%;left:20%;"></div>
+<div class="particle" style="top:60%;left:70%;"></div>
+<div class="particle" style="top:30%;left:50%;"></div>
+<div class="particle" style="top:10%;left:30%;"></div>
+
+<!-- HERO -->
+<div class="container">
+  <div class="logo">ZYNE<span>X</span></div>
+  <div class="tagline">Build the Future</div>
+  <div class="divider"></div>
+  <div class="section-title">?? TOOLS</div>
+</div>
+
+<!-- PASSWORD TOOL -->
+<div class="tools">
+  <h2>Password <span>Generator</span></h2>
+  <p>Fast • Secure • Free</p>
+
+  <div class="tool-box">
+    <input type="number" id="len" placeholder="Password length (8-20)">
+    <button onclick="gen()">Generate Password</button>
+    <input type="text" id="out" placeholder="Your password" readonly>
+    <button class="copy-btn" onclick="copyPass()">Copy Password</button>
+  </div>
+</div>
+
+<!-- QR TOOL -->
+<div class="tools">
+  <h2>QR Code <span>Generator</span></h2>
+  <p>Convert any URL into QR</p>
+
+  <div class="tool-box qr-box">
+    <input type="text" id="qrText" placeholder="Enter URL (https://...)">
+    <button onclick="genQR()">Generate QR</button>
+    <img id="qrImg" style="display:none;">
+    <button class="download-btn" onclick="downloadQR()">Download QR</button>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+  Contact us:<br>
+  <a href="mailto:zynexfuture6@gmail.com">zynexfuture6@gmail.com</a>
+</div>
+<footer>© 2026 ZYNEX. All rights reserved.</footer>
+
+<script>
+function gen(){
+  let l=document.getElementById("len").value||12;
+  let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
+  let p="";
+  for(let i=0;i<l;i++) p+=c[Math.floor(Math.random()*c.length)];
+  document.getElementById("out").value=p;
+}
+function copyPass(){
+  let o=document.getElementById("out");
+  if(!o.value) return alert("Generate password first");
+  o.select();document.execCommand("copy");
+  alert("Password copied!");
+}
+function genQR(){
+  let t=document.getElementById("qrText").value;
+  if(!t) return alert("Enter a URL");
+  let img=document.getElementById("qrImg");
+  img.src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+encodeURIComponent(t);
+  img.style.display="block";
+}
+function downloadQR(){
+  let img=document.getElementById("qrImg");
+  if(!img.src) return alert("Generate QR first");
+  let a=document.createElement("a");
+  a.href=img.src;
+  a.download="zynex-qr.png";
+  a.click();
+}
+</script>
+
+</body>
+</html>
