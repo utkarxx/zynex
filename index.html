@@ -1,25 +1,15 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZYNEX – Build the Future</title>
 
-<title>ZYNEX Tools – Password Generator & QR Code Generator</title>
-
-<meta name="description" content="ZYNEX Tools is a free online platform offering password generator and QR code generator tools. Fast, secure and mobile friendly.">
-<meta name="keywords" content="ZYNEX, password generator, qr code generator, free online tools">
-<meta name="author" content="ZYNEX">
-<meta name="robots" content="index, follow">
-
-<meta property="og:title" content="ZYNEX Tools – Free Online Utilities">
-<meta property="og:description" content="Generate secure passwords and QR codes instantly with ZYNEX Tools.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://utkarxx.github.io/zynex/">
-
+<meta name="description" content="ZYNEX builds tools, apps, games, AI and cloud solutions for the future.">
 <meta name="theme-color" content="#020617">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 
 body{
   min-height:100vh;
@@ -34,7 +24,7 @@ body{
 .particle{
   position:absolute;width:4px;height:4px;
   background:#1E90FF;border-radius:50%;
-  animation:float 8s linear infinite;opacity:.7;
+  animation:float 10s linear infinite;opacity:.7;
 }
 @keyframes float{
   0%{transform:translate(0);opacity:.3}
@@ -44,43 +34,159 @@ body{
 
 /* hero */
 .container{
-  max-width:520px;
-  margin:80px auto 40px;
-  position:relative;
+  max-width:720px;
+  margin:100px auto 40px;
 }
 
-.logo{font-size:3rem;font-weight:800;letter-spacing:4px;}
-.logo span{color:#1E90FF;text-shadow:0 0 20px rgba(30,144,255,.8);}
-.tagline{margin-top:15px;font-size:1.2rem;color:#cbd5f5;}
-.divider{width:80px;height:4px;background:#1E90FF;margin:20px auto;border-radius:10px;}
-.section-title{font-size:1.4rem;color:#00E5FF}
+.logo{font-size:3rem;font-weight:800;letter-spacing:4px}
+.logo span{color:#1E90FF;text-shadow:0 0 25px rgba(30,144,255,.9)}
+.tagline{margin-top:15px;font-size:1.2rem;color:#cbd5f5}
+.divider{width:80px;height:4px;background:#1E90FF;margin:20px auto;border-radius:10px}
 
-/* glass tool card */
-.tool-section{
-  max-width:520px;
-  margin:40px auto;
+/* GLASS BUTTON */
+.glass-btn{
+  margin:40px auto 0;
+  max-width:340px;
   padding:30px;
-  border-radius:18px;
-  background:rgba(15,23,42,.55);
-  backdrop-filter:blur(14px);
-  border:1px solid rgba(30,144,255,.35);
-  box-shadow:0 0 40px rgba(30,144,255,.25);
+  border-radius:26px;
+  background:rgba(255,255,255,.09);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 0 60px rgba(30,144,255,.5);
+  cursor:pointer;
+  transition:.4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
 }
 
-.tool-section h2 span{color:#1E90FF}
-.tool-section p{color:#94a3b8;margin-bottom:20px;}
+.glass-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(0,229,255,.4),transparent);
+  transform:translateX(-100%);
+}
+
+.glass-btn:hover::before{
+  transform:translateX(100%);
+  transition:1s;
+}
+
+.glass-btn:hover{
+  transform:scale(1.08) translateY(-6px);
+  box-shadow:0 0 90px rgba(0,229,255,.9);
+}
+
+.glass-btn h3{font-size:1.7rem}
+.glass-btn span{color:#1E90FF}
+.glass-btn p{margin-top:6px;color:#94a3b8;font-size:.95rem}
+
+/* ecosystem */
+.ecosystem{
+  margin:45px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.eco-card{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.18);
+  cursor:pointer;
+  transition:.3s;
+  font-weight:600;
+}
+.eco-card span{color:#1E90FF}
+.eco-card:hover{
+  transform:translateY(-6px) scale(1.06);
+  box-shadow:0 0 50px rgba(0,229,255,.6);
+}
+@media(max-width:700px){
+  .ecosystem{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ===== TOOLS OVERLAY (SEPARATE SECTION) ===== */
+#toolsOverlay{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,#020617,#000);
+  z-index:999;
+  display:none;
+  overflow-y:auto;
+  padding:40px 20px;
+}
+
+#toolsOverlay.active{
+  display:block;
+  animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.tools-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1000px;
+  margin:0 auto 40px;
+}
+
+.close-btn{
+  background:none;
+  border:1px solid #1E90FF;
+  color:#1E90FF;
+  padding:10px 18px;
+  border-radius:12px;
+  cursor:pointer;
+}
+.close-btn:hover{background:#1E90FF;color:black}
+
+/* tools grid */
+.tools-grid{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+}
+@media(max-width:700px){
+  .tools-grid{grid-template-columns:1fr}
+}
+
+/* tool glass card */
+.tool-card{
+  padding:30px;
+  border-radius:26px;
+  background:rgba(255,255,255,.09);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 0 50px rgba(30,144,255,.4);
+  transition:.4s;
+}
+.tool-card:hover{
+  transform:translateY(-8px) scale(1.05);
+  box-shadow:0 0 90px rgba(0,229,255,.9);
+}
+
+.tool-card h4 span{color:#1E90FF}
+.tool-card p{color:#94a3b8;margin:10px 0}
 
 input,button{
   width:100%;
   padding:12px;
-  margin:10px 0;
+  margin:8px 0;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   font-size:1rem;
 }
 
 input{
-  background:rgba(2,6,23,.85);
+  background:rgba(2,6,23,.9);
   color:white;
   border:1px solid rgba(30,144,255,.6);
 }
@@ -94,21 +200,19 @@ button{
 button:hover{background:#00E5FF}
 
 .copy-btn{background:#22c55e}
-.copy-btn:hover{background:#16a34a}
-
 .download-btn{background:#a855f7}
-.download-btn:hover{background:#9333ea}
 
-.qr-box img{
-  margin-top:15px;
+#qrImg{
+  display:none;
+  margin:15px auto 0;
   width:180px;
   background:white;
   padding:10px;
-  border-radius:10px;
+  border-radius:12px;
 }
 
 /* footer */
-.contact{margin-top:50px;color:#94a3b8}
+.contact{margin-top:60px;color:#94a3b8}
 .contact a{color:#1E90FF;text-decoration:none}
 footer{margin-top:10px;font-size:.8rem;color:#64748b}
 </style>
@@ -116,49 +220,79 @@ footer{margin-top:10px;font-size:.8rem;color:#64748b}
 
 <body>
 
-<div class="particle" style="top:80%;left:20%"></div>
-<div class="particle" style="top:60%;left:70%"></div>
-<div class="particle" style="top:30%;left:50%"></div>
-<div class="particle" style="top:10%;left:30%"></div>
+<div class="particle" style="top:70%;left:20%"></div>
+<div class="particle" style="top:40%;left:80%"></div>
 
-<!-- HERO -->
 <div class="container">
   <div class="logo">ZYNE<span>X</span></div>
   <div class="tagline">Build the Future</div>
   <div class="divider"></div>
-  <div class="section-title">⚙️ TOOLS</div>
+
+  <!-- ZYNEX TOOLS -->
+  <div class="glass-btn" onclick="openTools()">
+    <h3>ZYNEX <span>TOOLS</span></h3>
+    <p>Open powerful utilities</p>
+  </div>
+
+  <div class="ecosystem">
+    <div class="eco-card" onclick="future()">ZYNEX <span>Apps</span></div>
+    <div class="eco-card" onclick="future()">ZYNEX <span>Games</span></div>
+    <div class="eco-card" onclick="future()">ZYNEX <span>AI</span></div>
+    <div class="eco-card" onclick="future()">ZYNEX <span>Cloud</span></div>
+  </div>
 </div>
 
-<!-- PASSWORD TOOL -->
-<div class="tool-section">
-  <h2>Password <span>Generator</span></h2>
-  <p>Create strong & secure passwords instantly</p>
+<!-- ===== TOOLS OVERLAY ===== -->
+<div id="toolsOverlay">
+  <div class="tools-header">
+    <h2>ZYNEX <span style="color:#1E90FF">TOOLS</span></h2>
+    <button class="close-btn" onclick="closeTools()">Close</button>
+  </div>
 
-  <input type="number" id="len" placeholder="Password length (8–20)">
-  <button onclick="genPass()">Generate Password</button>
-  <input type="text" id="passOut" placeholder="Your password" readonly>
-  <button class="copy-btn" onclick="copyPass()">Copy Password</button>
+  <div class="tools-grid">
+
+    <!-- PASSWORD TOOL -->
+    <div class="tool-card">
+      <h4>Password <span>Generator</span></h4>
+      <p>Generate strong secure passwords</p>
+      <input type="number" id="len" placeholder="Password length">
+      <button onclick="genPass()">Generate</button>
+      <input type="text" id="passOut" readonly>
+      <button class="copy-btn" onclick="copyPass()">Copy</button>
+    </div>
+
+    <!-- QR TOOL -->
+    <div class="tool-card">
+      <h4>QR Code <span>Generator</span></h4>
+      <p>Create QR from any URL</p>
+      <input type="text" id="qrText" placeholder="Enter URL">
+      <button onclick="genQR()">Generate</button>
+      <img id="qrImg">
+      <button class="download-btn" onclick="downloadQR()">Download</button>
+    </div>
+
+  </div>
 </div>
 
-<!-- QR TOOL -->
-<div class="tool-section">
-  <h2>QR Code <span>Generator</span></h2>
-  <p>Convert any URL into a QR code</p>
-
-  <input type="text" id="qrText" placeholder="Enter URL (https://...)">
-  <button onclick="genQR()">Generate QR</button>
-  <img id="qrImg" style="display:none">
-  <button class="download-btn" onclick="downloadQR()">Download QR</button>
-</div>
-
-<!-- CONTACT -->
 <div class="contact">
   Contact us:<br>
-  <a href="mailto:zynex.future@gmail.com">zynex.future@gmail.com</a>
+  <a href="mailto:zynexfuture6@gmail.com">zynexfuture6@gmail.com</a>
 </div>
 <footer>© 2026 ZYNEX. All rights reserved.</footer>
 
 <script>
+function future(){
+  alert("🚧 In future upgrades");
+}
+
+function openTools(){
+  document.getElementById("toolsOverlay").classList.add("active");
+}
+
+function closeTools(){
+  document.getElementById("toolsOverlay").classList.remove("active");
+}
+
 function genPass(){
   let l=document.getElementById("len").value||12;
   let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
@@ -169,14 +303,14 @@ function genPass(){
 
 function copyPass(){
   let o=document.getElementById("passOut");
-  if(!o.value)return alert("Generate password first");
+  if(!o.value)return;
   o.select();document.execCommand("copy");
   alert("Password copied!");
 }
 
 function genQR(){
   let t=document.getElementById("qrText").value;
-  if(!t)return alert("Enter a URL");
+  if(!t)return;
   let img=document.getElementById("qrImg");
   img.src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+encodeURIComponent(t);
   img.style.display="block";
@@ -184,7 +318,7 @@ function genQR(){
 
 function downloadQR(){
   let img=document.getElementById("qrImg");
-  if(!img.src)return alert("Generate QR first");
+  if(!img.src)return;
   let a=document.createElement("a");
   a.href=img.src;
   a.download="zynex-qr.png";
@@ -193,4 +327,4 @@ function downloadQR(){
 </script>
 
 </body>
-</html>
+      </html>
