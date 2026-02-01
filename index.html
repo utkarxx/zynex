@@ -2,242 +2,252 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ZYNEX – Smart Search</title>
+<title>ZYNEX Search Engine</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="ZYNEX search engine, Indian search platform, smart search, ad free search">
-
 <style>
-:root{
-  --bg:#0b1220;
-  --card:#141c2f;
-  --text:#ffffff;
-  --accent:#1e90ff;
-}
-.light{
-  --bg:#f4f6fb;
-  --card:#ffffff;
-  --text:#000000;
-  --accent:#1e90ff;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f4f6fa;color:#111;transition:.3s}
+.dark{background:#0e1117;color:#eee}
 
-body{
-  margin:0;
-  font-family:Segoe UI, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  transition:0.3s;
-}
-
-header{
-  text-align:center;
-  padding:30px 15px;
-}
+header{text-align:center;padding:30px;position:relative}
+.logo{font-size:54px;font-weight:900;letter-spacing:2px}
+.logo .zyne{color:#fff}
+.logo .x{color:#1a73e8;text-shadow:0 0 15px #1a73e8}
 
 .toggle{
-  position:absolute;
-  top:15px;
-  right:15px;
-  cursor:pointer;
-  padding:8px 14px;
-  border-radius:20px;
-  background:var(--card);
+position:absolute;top:20px;right:20px;
+padding:8px 12px;border:none;border-radius:8px;
+background:#1a73e8;color:#fff;cursor:pointer
 }
 
-.search-box{
-  max-width:520px;
-  margin:20px auto;
-  display:flex;
-}
+.search-box{display:flex;justify-content:center;margin:20px}
 .search-box input{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:30px 0 0 30px;
+width:75%;max-width:560px;
+padding:14px 18px;
+border-radius:30px;
+border:1px solid #dfe1e5;
+font-size:16px;
 }
 .search-box button{
-  padding:14px 22px;
-  border:none;
-  border-radius:0 30px 30px 0;
-  background:var(--accent);
-  color:white;
-}
-
-.shortcuts{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.shortcuts a{
-  background:var(--card);
-  padding:8px 14px;
-  border-radius:20px;
-  color:var(--text);
-  text-decoration:none;
-  font-size:14px;
-}
-
-.main{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  gap:20px;
-  padding:20px;
+margin-left:10px;
+width:48px;height:48px;
+border-radius:50%;
+border:none;background:#1a73e8;
+color:#fff;font-size:18px;cursor:pointer
 }
 
 #results{
-  flex:3;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-
-.sidebar{
-  flex:1;
-  background:var(--card);
-  border-radius:14px;
-  padding:16px;
-  display:none;
+padding:25px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+gap:20px
 }
 
 .card{
-  background:var(--card);
-  padding:16px;
-  border-radius:14px;
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(14px);
+padding:20px;border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.12)
+}
+.dark .card{background:rgba(30,30,30,.7)}
+
+.card h3{margin-bottom:10px}
+.card p{font-size:15px;line-height:1.6;margin-bottom:8px}
+.card img{width:100%;border-radius:14px;margin-top:10px}
+
+.wiki-tag{
+display:inline-block;
+background:#000;color:#fff;
+padding:4px 8px;border-radius:6px;
+font-size:12px;margin-bottom:8px
 }
 
-.card img{
-  width:100%;
-  border-radius:12px;
-}
+.images{display:flex;gap:8px;overflow-x:auto}
+.images img{height:120px;border-radius:10px}
 
-.tag{
-  background:var(--accent);
-  padding:4px 10px;
-  border-radius:12px;
-  font-size:12px;
+.loader{
+width:44px;height:44px;
+border:4px solid #ddd;
+border-top:4px solid #1a73e8;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:60px auto
 }
+@keyframes spin{to{transform:rotate(360deg)}}
 
-iframe{
-  width:100%;
-  border:none;
-  border-radius:12px;
-}
-
-a{color:var(--accent);}
+a{color:#1a73e8;text-decoration:none}
+a:hover{text-decoration:underline}
 </style>
 </head>
 
 <body>
 
-<div class="toggle" onclick="toggleTheme()">🌙 / ☀</div>
-
 <header>
-<h1>🔍 ZYNEX</h1>
-<p>Fast • Clean • Smart Search</p>
-
-<div class="search-box">
-<input id="searchInput" placeholder="Search ZYNEX...">
-<button onclick="doSearch()">Search</button>
-</div>
-
-<div class="shortcuts">
-<a href="https://youtube.com" target="_blank">YouTube</a>
-<a href="https://instagram.com" target="_blank">Instagram</a>
-<a href="https://spotify.com" target="_blank">Spotify</a>
-<a href="https://google.com" target="_blank">Google</a>
-<a href="https://duckduckgo.com" target="_blank">DuckDuckGo</a>
-</div>
+<div class="logo"><span class="zyne">ZYNE</span><span class="x">X</span></div>
+<button class="toggle" onclick="toggleDark()">🌙</button>
 </header>
 
-<div class="main">
+<div class="search-box">
+<input id="q" placeholder="Search with ZYNEX (news, wiki, images)">
+<button onclick="search()">🔍</button>
+</div>
+
 <div id="results"></div>
 
-<!-- WIKIPEDIA STYLE SIDEBAR -->
-<div class="sidebar" id="wikiBox">
-<h3>ZYNEX</h3>
-<p><b>Type:</b> Search Platform</p>
-<p><b>Founded:</b> 2025</p>
-<p><b>Founder:</b> Utkarsh Tiwari</p>
-<p><b>Partner:</b> Vishwesh Singh</p>
-<p><b>Focus:</b> Clean & Smart Search</p>
-</div>
-</div>
-
 <script>
-function toggleTheme(){
-document.body.classList.toggle("light");
-}
+function toggleDark(){document.body.classList.toggle("dark")}
 
-// HOME
-function loadHome(){
-document.getElementById("wikiBox").style.display="none";
-const box=document.getElementById("results");
-box.innerHTML="";
-["Technology","AI","India","World","Science","Business","Startups","Sports"]
-.forEach(t=>{
-box.innerHTML+=`
-<div class="card">
-<h3>${t}</h3>
-<p>Trending updates related to ${t}</p>
-<img src="https://source.unsplash.com/600x400/?${t},news">
-</div>`;
-});
-}
-loadHome();
-
-// SEARCH
-function doSearch(){
-const q=document.getElementById("searchInput").value.toLowerCase();
-if(q.includes("zynex")){
-showZynexPage();
-}else{
-window.open("https://duckduckgo.com/?q="+q,"_blank");
-}
-}
-
-// ABOUT PAGE
+// -------- CUSTOM ZYNEX PAGE ----------
 function showZynexPage(){
-document.getElementById("wikiBox").style.display="block";
 const box=document.getElementById("results");
 box.innerHTML=`
 <div class="card">
 <h2>🚀 ZYNEX – Smart Search Platform</h2>
 <p>
-ZYNEX ek modern, distraction-free search platform hai jo users ko fast
-aur reliable information provide karne ke goal ke saath banaya gaya hai.
+<b>ZYNEX</b> ek next-generation search engine hai jo clean,
+fast aur distraction-free information provide karta hai.
+Iska goal hai users ko ek hi jagah par <b>news, knowledge,
+images aur web</b> ka best experience dena.
 </p>
-</div>
-
-<div class="card">
-<h3>📖 History</h3>
 <p>
-Traditional search engines ads aur clutter se bhare hue ho chuke the.
-Isi problem ko solve karne ke liye ZYNEX ka concept aaya.
+ZYNEX students, creators aur researchers ke liye banaya gaya
+hai jahan unnecessary ads ke bina real content mile.
 </p>
 </div>
 
 <div class="card">
-<h3>🎯 Vision</h3>
+<h3>📖 ZYNEX Story</h3>
 <p>
-ZYNEX ka vision hai ek user-first, clean aur intelligent search experience dena.
+ZYNEX ki shuruaat ek simple thought se hui —
+<i>“Search ko simple aur powerful banana.”</i>
+Traditional search engines heavy aur ad-focused ho gaye hain,
+jabki ZYNEX ka focus clarity aur user experience par hai.
+</p>
+<p>
+Future me ZYNEX AI-powered smart results, personalization
+aur advanced discovery features add karega.
 </p>
 </div>
 
 <div class="card">
-<span class="tag">Founder</span>
-<h3>Utkarsh Tiwari</h3>
-<iframe src="https://www.instagram.com/p/DRs7bpWE9qa/embed"></iframe>
+<h3>👤 Co-Founder</h3>
+<p><b>Utkarsh Tiwari</b></p>
+<p>Vision, design & technology lead at ZYNEX.</p>
+<p>📸 Instagram:
+<a href="https://instagram.com/YOUR_INSTAGRAM_ID" target="_blank">
+@YOUR_INSTAGRAM_ID</a></p>
+<p>🔗 Post:
+<a href="https://instagram.com/p/YOUR_POST_URL" target="_blank">
+View Instagram Post</a></p>
 </div>
 
 <div class="card">
-<span class="tag">Partner</span>
-<h3>Vishwesh Singh</h3>
-<iframe src="https://www.instagram.com/p/DRbmxQogWLx/embed"></iframe>
+<h3>🤝 Partner</h3>
+<p><b>Vishwesh Singh</b></p>
+<p>Strategy & growth partner.</p>
+<p>📸 Instagram:
+<a href="https://instagram.com/PARTNER_INSTAGRAM_ID" target="_blank">
+@PARTNER_INSTAGRAM_ID</a></p>
+<p>🔗 Post:
+<a href="https://instagram.com/p/PARTNER_POST_URL" target="_blank">
+View Instagram Post</a></p>
 </div>
 `;
 }
+
+// -------- SEARCH ----------
+async function search(){
+const q=document.getElementById("q").value.trim();
+if(!q) return;
+
+const ql=q.toLowerCase();
+if(ql.includes("zynex")){
+showZynexPage();
+return;
+}
+
+const box=document.getElementById("results");
+box.innerHTML=`<div class="loader"></div>`;
+
+try{
+const wiki=await fetch(
+`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q)}`
+);
+
+box.innerHTML="";
+
+if(wiki.ok){
+const w=await wiki.json();
+box.innerHTML+=`
+<div class="card">
+<span class="wiki-tag">Wikipedia</span>
+<h3>${w.title}</h3>
+<p>${w.extract}</p>
+${w.thumbnail?`<img src="${w.thumbnail.source}">`:""}
+<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(w.title)}" target="_blank">
+Read more on Wikipedia →
+</a>
+</div>`;
+}
+
+const ddg=await fetch(
+`https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_html=1`
+);
+const d=await ddg.json();
+
+if(d.AbstractText){
+box.innerHTML+=`
+<div class="card">
+<h3>${d.Heading}</h3>
+<p>${d.AbstractText}</p>
+</div>`;
+}
+
+const imgs=[];
+if(d.RelatedTopics){
+d.RelatedTopics.forEach(r=>{
+if(r.Icon && r.Icon.URL)
+imgs.push("https://duckduckgo.com"+r.Icon.URL)
+})
+}
+if(imgs.length){
+box.innerHTML+=`
+<div class="card">
+<h3>Images</h3>
+<div class="images">
+${imgs.slice(0,15).map(i=>`<img src="${i}">`).join("")}
+</div>
+</div>`;
+}
+
+box.innerHTML+=`
+<div class="card">
+<a href="https://duckduckgo.com/?q=${encodeURIComponent(q)}" target="_blank">
+🌐 Search full web results
+</a>
+</div>`;
+}
+catch{
+box.innerHTML=`<div class="card">Error loading results</div>`;
+}
+}
+
+// -------- DEFAULT NEWS ----------
+function loadNews(){
+const box=document.getElementById("results");
+box.innerHTML="";
+const topics=["Technology","AI","India","World","Science","Business","Sports","Health"];
+topics.forEach(t=>{
+box.innerHTML+=`
+<div class="card">
+<h3>Latest ${t} News</h3>
+<p>Top trending updates and breaking stories related to ${t}.</p>
+<img src="https://source.unsplash.com/600x400/?${t}">
+</div>`;
+});
+}
+loadNews();
 </script>
 
 </body>
