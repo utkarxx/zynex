@@ -166,6 +166,65 @@ a:hover{text-decoration:underline}
 
 <div id="results"></div>
 
+  <script>
+const defaultShortcuts = [
+  {name:"Instagram", url:"https://www.instagram.com", icon:"https://cdn-icons-png.flaticon.com/512/2111/2111463.png"},
+  {name:"YouTube", url:"https://www.youtube.com", icon:"https://cdn-icons-png.flaticon.com/512/1384/1384060.png"},
+  {name:"Spotify", url:"https://open.spotify.com", icon:"https://cdn-icons-png.flaticon.com/512/174/174872.png"},
+  {name:"Google", url:"https://www.google.com", icon:"https://cdn-icons-png.flaticon.com/512/300/300221.png"},
+  {name:"DuckDuckGo", url:"https://duckduckgo.com", icon:"https://cdn-icons-png.flaticon.com/512/2504/2504925.png"}
+];
+
+function getShortcuts(){
+  return JSON.parse(localStorage.getItem("zynex_shortcuts")) || defaultShortcuts;
+}
+
+function saveShortcuts(data){
+  localStorage.setItem("zynex_shortcuts", JSON.stringify(data));
+}
+
+function renderShortcuts(){
+  const box = document.getElementById("shortcuts");
+  const data = getShortcuts();
+  box.innerHTML = "";
+
+  data.forEach((s,i)=>{
+    box.innerHTML += `
+    <div class="shortcut">
+      <a href="${s.url}" target="_blank">
+        <img src="${s.icon}">
+      </a>
+      <span>${s.name}</span>
+      <small style="color:red;cursor:pointer" onclick="deleteShortcut(${i})">✖</small>
+    </div>
+    `;
+  });
+}
+
+function addShortcut(){
+  const name = prompt("Shortcut name:");
+  const url = prompt("Website URL (https://...)");
+  if(!name || !url) return;
+
+  const icon = `https://www.google.com/s2/favicons?sz=128&domain=${url}`;
+
+  const data = getShortcuts();
+  data.push({name,url,icon});
+  saveShortcuts(data);
+  renderShortcuts();
+}
+
+function deleteShortcut(i){
+  const data = getShortcuts();
+  data.splice(i,1);
+  saveShortcuts(data);
+  renderShortcuts();
+}
+
+renderShortcuts();
+</script>
+
+
 <script>
 function toggleDark(){document.body.classList.toggle("dark")}
 
@@ -339,36 +398,11 @@ box.innerHTML+=`
 }
 catch{
 box.innerHTML=`<div class="card">Error loading results</div>`;
-}
-}
 
-  <div class="shortcuts">
+<div class="shortcuts" id="shortcuts"></div>
 
-  <a class="shortcut" href="https://www.instagram.com" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-    <span>Instagram</span>
-  </a>
-
-  <a class="shortcut" href="https://www.youtube.com" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-    <span>YouTube</span>
-  </a>
-
-  <a class="shortcut" href="https://open.spotify.com" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/174/174872.png">
-    <span>Spotify</span>
-  </a>
-
-  <a class="shortcut" href="https://www.google.com" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png">
-    <span>Google</span>
-  </a>
-
-  <a class="shortcut" href="https://duckduckgo.com" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2504/2504925.png">
-    <span>DuckDuckGo</span>
-  </a>
-
+<div style="text-align:center;margin-bottom:30px">
+  <button onclick="addShortcut()" class="toggle">➕ Add Shortcut</button>
 </div>
 
 
@@ -411,6 +445,7 @@ loadHome();
 
 </body>
 </html>
+
 
 
 
